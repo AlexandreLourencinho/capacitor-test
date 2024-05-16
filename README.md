@@ -1,10 +1,12 @@
 # CapacitorTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+Also using capacitor for android support.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+install Android studio and download a virtual device, or use an android phone.
+performs a npm run build, the application will use the dist dir (dist/appName/browser) to build the android application.
 
 ## Code scaffolding
 

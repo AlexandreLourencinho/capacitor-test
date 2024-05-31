@@ -6,7 +6,8 @@ Also using capacitor for android support.
 ## Development server
 
 install Android studio and download a virtual device, or use an android phone.
-performs a npm run build, the application will use the dist dir (dist/appName/browser) to build the android application.
+performs a npm run build, the application will use the dist dir (dist/appName/) to build the android application.
+Then run npx cap sync android to provide to the android project the needed assets
 
 ## Code scaffolding
 

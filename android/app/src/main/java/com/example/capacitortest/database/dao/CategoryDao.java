@@ -29,6 +29,9 @@ public interface CategoryDao {
   @Query("SELECT * FROM categories WHERE parent_id IS NULL")
   List<Category> findAllRootCategories();
 
+  @Query("SELECT * FROM categories")
+  List<Category> findAllCategories();
+
 
   // insert queries
   @Insert

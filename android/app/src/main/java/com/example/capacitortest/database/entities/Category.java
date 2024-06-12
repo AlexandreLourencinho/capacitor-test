@@ -3,9 +3,10 @@ package com.example.capacitortest.database.entities;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
+@Entity(indices = {@Index(name = "name", value = "name")},
   tableName = "categories",
   foreignKeys = @ForeignKey(
     entity = Category.class,
@@ -27,11 +28,12 @@ public class Category {
 
   @PrimaryKey(autoGenerate = true)
   private Long id;
+  @ColumnInfo()
   private String name;
   @ColumnInfo(name = "parent_id", index = true)
   private Long parentId = null;
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 

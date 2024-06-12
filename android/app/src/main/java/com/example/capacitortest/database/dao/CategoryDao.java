@@ -26,18 +26,21 @@ public interface CategoryDao {
   @Query("SELECT * FROM categories WHERE id = :id")
   Category findCategoryById(Long id);
 
+  @Query("SELECT * FROM categories WHERE parent_id IS NULL")
+  List<Category> findAllRootCategories();
+
 
   // insert queries
   @Insert
-  Category insertCategory(Category category);
+  Long insertCategory(Category category);
 
   @Insert
-  List<Category> insertAllCategories(Category... category);
+  List<Long> insertAllCategories(Category... category);
 
 
   // update query
   @Update
-  Category updateCategory(Category category);
+  void updateCategory(Category category);
 
 
   // delete queries

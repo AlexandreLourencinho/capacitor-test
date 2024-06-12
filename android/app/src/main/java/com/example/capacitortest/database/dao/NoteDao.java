@@ -16,14 +16,14 @@ public interface NoteDao {
   // https://github.com/android/codelab-android-room-with-a-view/blob/master/app/src/main/java/com/example/android/roomwordssample/WordRoomDatabase.java
   // https://github.com/ionic-team/capacitor-plugins/tree/main
 
-  List<Note> findNotesByCategory(Category category);
+//  List<Note> findNotesByCategory(Category category);
 
 
   @Insert
-  Note insertNote(Note note);
+  Long insertNote(Note note);
 
   @Update
-  Note updateNote(Note note);
+  void updateNote(Note note);
 
 
 }

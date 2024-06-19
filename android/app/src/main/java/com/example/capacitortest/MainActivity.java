@@ -11,7 +11,6 @@ import com.example.capacitortest.database.dao.NoteDao;
 import com.example.capacitortest.database.entities.Category;
 import com.example.capacitortest.plugins.CreateCategoryPlugin;
 import com.getcapacitor.BridgeActivity;
-import com.getcapacitor.CapConfig;
 import java.util.logging.Logger;
 
 public class MainActivity extends BridgeActivity {

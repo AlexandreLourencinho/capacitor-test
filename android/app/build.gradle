@@ -34,21 +34,16 @@ repositories {
 dependencies {
   def room_version = "2.6.1"
 
-  implementation "androidx.room:room-runtime:$room_version"
   annotationProcessor "androidx.room:room-compiler:$room_version"
 
+
+  implementation "androidx.room:room-runtime:$room_version"
   // optional - RxJava2 support for Room
   implementation "androidx.room:room-rxjava2:$room_version"
-
   // optional - RxJava3 support for Room
   implementation "androidx.room:room-rxjava3:$room_version"
-
   // optional - Guava support for Room, including Optional and ListenableFuture
   implementation "androidx.room:room-guava:$room_version"
-
-  // optional - Test helpers
-  testImplementation "androidx.room:room-testing:$room_version"
-
   // optional - Paging 3 Integration
   implementation "androidx.room:room-paging:$room_version"
   implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -57,9 +52,15 @@ dependencies {
   implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
   implementation "androidx.sqlite:sqlite:2.4.0"
   implementation project(':capacitor-android')
+  implementation "org.nanohttpd:nanohttpd:2.3.1"
+
   testImplementation "junit:junit:$junitVersion"
+  // optional - Test helpers
+  testImplementation "androidx.room:room-testing:$room_version"
+
   androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
   androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+
   implementation project(':capacitor-cordova-android-plugins')
 }
 

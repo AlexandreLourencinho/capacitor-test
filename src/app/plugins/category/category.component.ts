@@ -13,7 +13,9 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     const plug = registerPlugin<CategoryPlugin>("categoryPlugin");
-    plug.echo( { value: "tamere"});
+    void plug.echo( { value: "tamere"});
+    console.log('plug', plug);
+    // chatty
     // https://capacitorjs.com/docs/android/custom-code
     // https://github.com/ionic-enterprise/capacitor-plugin-tutorial/blob/main/src/plugins/screen-orientation/index.ts
     // https://github.com/robingenz/capacitor-plugin-demo/blob/main/src/app/modules/badge/badge.page.ts

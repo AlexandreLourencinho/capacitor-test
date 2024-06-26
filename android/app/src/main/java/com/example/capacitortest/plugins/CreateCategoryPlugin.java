@@ -1,14 +1,10 @@
 package com.example.capacitortest.plugins;
 
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.logging.Logger;
 
@@ -27,6 +23,7 @@ public class CreateCategoryPlugin extends Plugin {
   public void echo(PluginCall call) {
 
     var tt = call.getString("test");
+    System.out.println(tt);
 
     JSObject json = new JSObject();
     json.put("return", tt);

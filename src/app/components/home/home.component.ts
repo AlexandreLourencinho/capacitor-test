@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {HomeService} from "./services/home.service";
+import {catchError, finalize, map, tap} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -14,27 +15,64 @@ export class HomeComponent {
   }
 
   testNanoHTTPDrequest() {
-    this.service.testCall().subscribe((predicate) => {
-      console.log(predicate);
-      for (let key in predicate) {
-        console.log(key);
-      }
-      console.log('this response is working');
-      console.log('predicate', predicate);
-      this.response = predicate;
-    }, (error) => {
-      console.log('error', error);
-      console.log('error.message', error.message);
-      console.log('error.header', error.header);
-      console.log('error.status', error.status);
-      console.log('error.url', error.url);
-      console.log('error.ok', error.ok);
-      console.log('error.name', error.name);
-      console.log('error.statusText', error.statusText);
-      for (let key in error) {
-        console.log('key', key);
-      }
-    });
+    this.service.testCall().pipe(
+      map(mapping => mapping.body),
+      tap(predicate => {
+        console.log('predicate.response avant parse', predicate);
+        for (let key in predicate) {
+          console.log("key :", key);
+          console.log('predicate[key]', predicate[key]);
+          console.log('predicate.response', predicate.response);
+          this.response = predicate.response;
+        }
+      }),
+      catchError((error, test) => {
+        console.log('error', error);
+        console.log('test', test);
+        for (let key in test) {
+          console.log("key :", key);
+          test.subscribe(predtest => {
+            console.log('predtest', predtest);
+          })
+        }
+        return test;
+      }),
+      finalize(() => {
+        console.log('finit!');
+      })
+    ).subscribe();
 
+    this.service.testCall2().pipe(
+      map(mapping => {
+        console.log("on rentre dans la deuxième méthode")
+        console.log('mapping', mapping);
+        return mapping.body;
+      }),
+      tap(predicate => {
+        console.log('predicate.response avant parse', predicate);
+        for (let key in predicate) {
+          console.log("key :", key);
+          console.log('predicate[key]', predicate[key]);
+          console.log('predicate.response', predicate.response);
+          this.response = predicate.response;
+        }
+      }),
+      catchError((error, test) => {
+        console.log('error', error);
+        console.log('test', test);
+        for (let key in test) {
+          console.log("key :", key);
+          // @ts-ignore
+          console.log('test[key]', test[key]);
+          test.subscribe(predtest => {
+            console.log('predtest', predtest);
+          })
+        }
+        return test;
+      }),
+      finalize(() => {
+        console.log('finit!');
+      })
+    ).subscribe();
   }
 }

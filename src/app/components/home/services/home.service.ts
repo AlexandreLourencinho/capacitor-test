@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -13,8 +13,13 @@ export class HomeService {
 
   public testCall(): Observable<any> {
     console.log('test service');
-    return this.http.get("http://10.0.2.16:8080", {responseType: 'text'});
+    // return this.http.get("http://10.0.2.16:8080", {responseType: 'text'});
+    return this.http.get("http://10.0.2.16:8080", {params: new HttpParams(), observe: "response"});
     // https://stackoverflow.com/questions/46408537/angular-httpclient-http-failure-during-parsing RESPONSE TYPE TEXT BC OF  THE ANDROID METHOD
+  }
+
+  public testCall2(): Observable<any> {
+    return this.http.post("http://10.0.2.16:8080/testendpoint", {params: "params"}, {params: new HttpParams(), observe: "response"});
   }
 
 

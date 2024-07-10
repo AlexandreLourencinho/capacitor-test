@@ -10,8 +10,8 @@ import com.example.capacitortest.database.configuration.DatabaseConfiguration;
 import com.example.capacitortest.database.dao.CategoryDao;
 import com.example.capacitortest.database.dao.NoteDao;
 import com.example.capacitortest.database.entities.Category;
+import com.example.capacitortest.database.entities.Note;
 import com.example.capacitortest.http.MyHTTPd;
-import com.example.capacitortest.plugins.CreateCategoryPlugin;
 import com.getcapacitor.BridgeActivity;
 
 import java.io.IOException;
@@ -19,8 +19,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class MainActivity extends BridgeActivity {
-//  https://developer.android.com/training/data-storage/room?hl=fr
-  private final String CLASSNAME = this.getClass().getName();
+  //  https://developer.android.com/training/data-storage/room?hl=fr
+  private static final String CLASSNAME = MainActivity.class.getName();
 
   private final Logger log = Logger.getLogger(CLASSNAME);
   private MyHTTPd server;
@@ -28,21 +28,35 @@ public class MainActivity extends BridgeActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    registerPlugin(CreateCategoryPlugin.class);
     super.onCreate(savedInstanceState);
 
     log.info("test 1 mais en logger");
     DatabaseConfiguration dbConfig = Room.databaseBuilder(getApplicationContext(),
-        DatabaseConfiguration.class, "test-db").allowMainThreadQueries().build();
+      DatabaseConfiguration.class,
+      "test-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+
     NoteDao noteDao = dbConfig.noteDao();
     CategoryDao cate = dbConfig.categoryDao();
-    Category catToInsert = new Category();
-    Category catToInsert2 = new Category();
-    catToInsert.setName("name cate");
-    catToInsert2.setName("name cate 2");
-    catToInsert2.setParentId(2L);
-    cate.insertCategory(catToInsert);
-    cate.insertCategory(catToInsert2);
+
+    Note note = new Note();
+//    Category catToInsert = new Category();
+//    Category catToInsert2 = new Category();
+//    catToInsert.setName("name cate");
+//    catToInsert2.setName("name cate 2");
+//    catToInsert2.setParentId(1L);
+//    cate.insertCategory(catToInsert);
+//    cate.insertCategory(catToInsert2);
+    note.setNoteContent("blablablaaaaaaaaa la note");
+    note.setCategoryId(2L);
+    noteDao.insertNote(note);
+
+    var notes = noteDao.findAllNotes();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      notes.forEach(predicate -> {
+        Log.d(CLASSNAME, predicate.getNoteContent());
+        Log.d(CLASSNAME, predicate.getCategoryId().toString());
+      });
+    }
     var list = cate.findAllRootCategories();
     var secondList = cate.findAllCategories();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -50,20 +64,20 @@ public class MainActivity extends BridgeActivity {
         log.info("predicate : " + predicate.getId() + " " + predicate.getName());
       });
       secondList.forEach(predicate -> {
-        log.info("all categories , id :" + predicate.getId() + ", name : " + predicate.getName() + ", parent category " +
-                 (predicate.getParentId() != null ? predicate.getParentId() : "no parent category"));
+        log.info(
+          "all categories , id :" + predicate.getId() + ", name : " + predicate.getName() + ", parent category " + (predicate.getParentId() != null ? predicate.getParentId() : "no parent category"));
       });
 
     }
 
     server = new MyHTTPd();
     try {
-     server.start();
-     log.warning("http server running");
-     Log.d(CLASSNAME, "hostname : " + server.getHostname());
-     Log.d(CLASSNAME, Objects.requireNonNull(this.getIPAddress()));
-     var port = server.getListeningPort();
-     Log.d(CLASSNAME, "server port is : " + port);
+      server.start();
+      log.warning("http server running");
+      Log.d(CLASSNAME, "hostname : " + server.getHostname());
+      Log.d(CLASSNAME, Objects.requireNonNull(this.getIPAddress()));
+      var port = server.getListeningPort();
+      Log.d(CLASSNAME, "server port is : " + port);
     } catch (IOException e) {
       e.printStackTrace();
       log.warning(e.getMessage());

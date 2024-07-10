@@ -1,24 +1,31 @@
 package com.example.capacitortest.database.entities;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
-@Entity
+@Entity(tableName = "notes")
 public class Note {
 
   public Note() {
   }
 
-  public Note(Long id, String note_content, Long category_id) {
+  public Note(Long id, String noteContent, Long categoryId) {
     this.id = id;
-    this.note_content = note_content;
-    this.category_id = category_id;
+    this.noteContent = noteContent;
+    this.categoryId = categoryId;
   }
 
   @PrimaryKey(autoGenerate = true)
   private Long id;
-  private String note_content;
-  private Long category_id = null;
+  @ColumnInfo(name = "note_content")
+  private String noteContent;
+  @ColumnInfo(name = "category_id")
+  private Long categoryId = null;
+  //TODO revoir relations + requête notes + catégorie !
 
   public Long getId() {
     return id;
@@ -28,20 +35,20 @@ public class Note {
     this.id = id;
   }
 
-  public String getNote_content() {
-    return note_content;
+  public String getNoteContent() {
+    return noteContent;
   }
 
-  public void setNote_content(String note_content) {
-    this.note_content = note_content;
+  public void setNoteContent(String noteContent) {
+    this.noteContent = noteContent;
   }
 
-  public Long getCategory_id() {
-    return category_id;
+  public Long getCategoryId() {
+    return categoryId;
   }
 
-  public void setCategory_id(Long category_id) {
-    this.category_id = category_id;
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
   }
 
 }

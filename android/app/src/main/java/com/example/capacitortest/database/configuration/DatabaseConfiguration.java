@@ -8,7 +8,7 @@ import com.example.capacitortest.database.dao.NoteDao;
 import com.example.capacitortest.database.entities.Category;
 import com.example.capacitortest.database.entities.Note;
 
-@Database(entities = {Note.class, Category.class}, version = 2)
+@Database(entities = {Note.class, Category.class}, version = 4)
 public abstract class DatabaseConfiguration extends RoomDatabase {
   public abstract CategoryDao categoryDao();
   public abstract NoteDao noteDao();

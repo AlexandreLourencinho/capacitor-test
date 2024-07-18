@@ -3,10 +3,15 @@ package com.example.capacitortest.http;
 import static fi.iki.elonen.NanoHTTPD.MIME_PLAINTEXT;
 import static fi.iki.elonen.NanoHTTPD.newFixedLengthResponse;
 
+import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import fi.iki.elonen.NanoHTTPD.*;
 
@@ -40,7 +45,18 @@ public class HttpController {
     return response;
   }
 
-  public Response managePostRequest(IHTTPSession session) {
+  public Response managePostRequest(IHTTPSession session) throws ResponseException, IOException {
+    Map<String, String> headers = session.getHeaders();
+    Map<String, String> params = new HashMap<>();
+    session.parseBody(params);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      params.forEach((key, value) -> {
+        Log.d(CLASSNAME, "key is : " + key);
+        Log.d(CLASSNAME, "value is : " + value);
+      });
+    }
+    // "{\"id\":null,\"noteContent":"blabla la note vient du front","categoryId":2}"
+    //TODO GSON PARSE BODY
     var test = "hellow world";
 
     try {

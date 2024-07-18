@@ -15,6 +15,10 @@ import com.example.capacitortest.http.MyHTTPd;
 import com.getcapacitor.BridgeActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -38,7 +42,7 @@ public class MainActivity extends BridgeActivity {
     NoteDao noteDao = dbConfig.noteDao();
     CategoryDao cate = dbConfig.categoryDao();
 
-    Note note = new Note();
+//    Note note = new Note();
 //    Category catToInsert = new Category();
 //    Category catToInsert2 = new Category();
 //    catToInsert.setName("name cate");
@@ -46,9 +50,23 @@ public class MainActivity extends BridgeActivity {
 //    catToInsert2.setParentId(1L);
 //    cate.insertCategory(catToInsert);
 //    cate.insertCategory(catToInsert2);
-    note.setNoteContent("blablablaaaaaaaaa la note");
-    note.setCategoryId(2L);
-    noteDao.insertNote(note);
+//    note.setNoteContent("blablablaaaaaaaaa la note");
+//    note.setCategoryId(2L);
+//    noteDao.insertNote(note);
+    var catd = cate.findAllNotesAndCategory();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      catd.forEach((key, value) -> {
+        Log.d(CLASSNAME, key.getName());
+        Log.d(CLASSNAME, key.getId().toString());
+        Log.d(CLASSNAME, "for this category :");
+        value.forEach(predicate -> {
+          Log.d(CLASSNAME, predicate.getId().toString());
+          Log.d(CLASSNAME, predicate.getNoteContent());
+          Log.d(CLASSNAME, predicate.getCategoryId().toString());
+        });
+
+      });
+    }
 
     var notes = noteDao.findAllNotes();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -60,17 +78,15 @@ public class MainActivity extends BridgeActivity {
     var list = cate.findAllRootCategories();
     var secondList = cate.findAllCategories();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      list.forEach(predicate -> {
-        log.info("predicate : " + predicate.getId() + " " + predicate.getName());
-      });
-      secondList.forEach(predicate -> {
-        log.info(
-          "all categories , id :" + predicate.getId() + ", name : " + predicate.getName() + ", parent category " + (predicate.getParentId() != null ? predicate.getParentId() : "no parent category"));
-      });
+      list.forEach(predicate -> log.info("predicate : " + predicate.getId() + " " + predicate.getName()));
+      secondList.forEach(predicate -> log.info(
+        "all categories , id :" + predicate.getId() + ", name : " + predicate.getName() + ", parent category "
+        + (predicate.getParentId() != null ? predicate.getParentId() : "no parent category")));
 
     }
 
     server = new MyHTTPd();
+
     try {
       server.start();
       log.warning("http server running");

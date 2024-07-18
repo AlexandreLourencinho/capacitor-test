@@ -5,6 +5,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import fi.iki.elonen.NanoHTTPD;
 
 public class MyHTTPd extends NanoHTTPD {
@@ -46,7 +48,13 @@ public class MyHTTPd extends NanoHTTPD {
       }
 
       case POST -> {
-        return httpController.managePostRequest(session);
+          try {
+              return httpController.managePostRequest(session);
+          } catch (ResponseException e) {
+              throw new RuntimeException(e);
+          } catch (IOException e) {
+              throw new RuntimeException(e);
+          }
       }
 
       case PUT -> {

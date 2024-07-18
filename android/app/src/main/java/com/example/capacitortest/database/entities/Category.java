@@ -27,6 +27,7 @@ public class Category {
   }
 
   @PrimaryKey(autoGenerate = true)
+  @ColumnInfo(name = "id")
   private Long id;
   @ColumnInfo()
   private String name;

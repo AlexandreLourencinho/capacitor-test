@@ -51,6 +51,7 @@ dependencies {
   implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
   implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
   implementation "androidx.sqlite:sqlite:2.4.0"
+  implementation 'com.google.code.gson:gson:2.10.1'
   implementation project(':capacitor-android')
   implementation "org.nanohttpd:nanohttpd:2.3.1"
 

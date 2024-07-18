@@ -7,8 +7,10 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.capacitortest.database.entities.Category;
+import com.example.capacitortest.database.entities.Note;
 
 import java.util.List;
+import java.util.Map;
 
 @Dao
 public interface CategoryDao {
@@ -31,6 +33,9 @@ public interface CategoryDao {
 
   @Query("SELECT * FROM categories")
   List<Category> findAllCategories();
+
+  @Query("SELECT * FROM categories INNER JOIN notes ON notes.category_id = categories.id")
+  Map<Category, List<Note>> findAllNotesAndCategory();
 
 
   // insert queries

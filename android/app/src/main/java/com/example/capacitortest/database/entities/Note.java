@@ -7,7 +7,13 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
-@Entity(tableName = "notes")
+@Entity(tableName = "notes",
+  foreignKeys = @ForeignKey(
+    entity = Category.class,
+    parentColumns = "id",
+    childColumns = "category_id",
+    onDelete = ForeignKey.CASCADE
+  ))
 public class Note {
 
   public Note() {

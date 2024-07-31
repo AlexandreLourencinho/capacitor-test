@@ -6,6 +6,9 @@ import static fi.iki.elonen.NanoHTTPD.newFixedLengthResponse;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.capacitortest.database.entities.Note;
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +22,7 @@ public class HttpController {
 
   private static final String CLASSNAME = HttpController.class.getName();
   private Response response;
+  private final Gson gson = new Gson();
 
   public Response manageOptionsRequest() {
     response = newFixedLengthResponse(Response.Status.OK, MIME_PLAINTEXT, "");
@@ -65,6 +69,9 @@ public class HttpController {
       test2.put("response", test);
       var stringTest = test2.toString();
       Log.d(CLASSNAME, stringTest);
+      Note note = gson.fromJson(params.get("postData"), Note.class);
+      Log.d(CLASSNAME, "note details, content:" + note.getNoteContent());
+      Log.d(CLASSNAME, "note details, categoryId:" + note.getCategoryId());
       response = newFixedLengthResponse(Response.Status.OK, "application/json",
         stringTest);// TODO VOIR POUR DU BON JSON
       response.addHeader("Access-Control-Allow-Origin", "*");

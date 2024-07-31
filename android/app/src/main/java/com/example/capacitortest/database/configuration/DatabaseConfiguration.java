@@ -12,4 +12,5 @@ import com.example.capacitortest.database.entities.Note;
 public abstract class DatabaseConfiguration extends RoomDatabase {
   public abstract CategoryDao categoryDao();
   public abstract NoteDao noteDao();
+
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.room.Room;
 
+import com.example.capacitortest.database.configuration.DatabaseClient;
 import com.example.capacitortest.database.configuration.DatabaseConfiguration;
 import com.example.capacitortest.database.dao.CategoryDao;
 import com.example.capacitortest.database.dao.NoteDao;
@@ -15,19 +16,25 @@ import com.example.capacitortest.http.MyHTTPd;
 import com.getcapacitor.BridgeActivity;
 
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
 public class MainActivity extends BridgeActivity {
+
   //  https://developer.android.com/training/data-storage/room?hl=fr
   private static final String CLASSNAME = MainActivity.class.getName();
 
   private final Logger log = Logger.getLogger(CLASSNAME);
   private MyHTTPd server;
+  private DatabaseConfiguration dbConfig;
 
 
   @Override
@@ -35,9 +42,7 @@ public class MainActivity extends BridgeActivity {
     super.onCreate(savedInstanceState);
 
     log.info("test 1 mais en logger");
-    DatabaseConfiguration dbConfig = Room.databaseBuilder(getApplicationContext(),
-      DatabaseConfiguration.class,
-      "test-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+    dbConfig = DatabaseClient.getInstance(getApplicationContext()).getDatabase();
 
     NoteDao noteDao = dbConfig.noteDao();
     CategoryDao cate = dbConfig.categoryDao();
@@ -78,10 +83,10 @@ public class MainActivity extends BridgeActivity {
     var list = cate.findAllRootCategories();
     var secondList = cate.findAllCategories();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      list.forEach(predicate -> log.info("predicate : " + predicate.getId() + " " + predicate.getName()));
+      list.forEach(
+        predicate -> log.info("predicate : " + predicate.getId() + " " + predicate.getName()));
       secondList.forEach(predicate -> log.info(
-        "all categories , id :" + predicate.getId() + ", name : " + predicate.getName() + ", parent category "
-        + (predicate.getParentId() != null ? predicate.getParentId() : "no parent category")));
+        "all categories , id :" + predicate.getId() + ", name : " + predicate.getName() + ", parent category " + (predicate.getParentId() != null ? predicate.getParentId() : "no parent category")));
 
     }
 
@@ -104,13 +109,13 @@ public class MainActivity extends BridgeActivity {
   }
 
   private String getIPAddress() {
-    // Méthode pour obtenir l'adresse IP de l'appareil
+
     try {
-      for (java.util.Enumeration<java.net.NetworkInterface> en = java.net.NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
-        java.net.NetworkInterface intf = en.nextElement();
-        for (java.util.Enumeration<java.net.InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-          java.net.InetAddress inetAddress = enumIpAddr.nextElement();
-          if (!inetAddress.isLoopbackAddress() && inetAddress instanceof java.net.Inet4Address) {
+      for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+        NetworkInterface intf = en.nextElement();
+        for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+          InetAddress inetAddress = enumIpAddr.nextElement();
+          if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
             return inetAddress.getHostAddress();
           }
         }
@@ -129,4 +134,5 @@ public class MainActivity extends BridgeActivity {
       log.info("server has been TERMINATED MOFO");
     }
   }
+
 }

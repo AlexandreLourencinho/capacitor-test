@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {HomeService} from "./services/home.service";
 import {catchError, finalize, map, tap} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-home',
@@ -75,4 +76,18 @@ export class HomeComponent {
       })
     ).subscribe();
   }
+
+  public testListNotesAndCategories(): void {
+    this.service.testCall3().pipe(
+      tap(predicate => {
+        console.log('predicate', predicate.response);
+      }),
+      catchError((error, caught) => {
+        console.error(error);
+        return caught;
+      })
+    ).subscribe();
+  }
+
+
 }

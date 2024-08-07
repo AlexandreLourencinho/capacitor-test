@@ -61,13 +61,13 @@ public class MainActivity extends BridgeActivity {
     var catd = cate.findAllNotesAndCategory();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       catd.forEach((key, value) -> {
-        Log.d(CLASSNAME, key.getName());
-        Log.d(CLASSNAME, key.getId().toString());
-        Log.d(CLASSNAME, "for this category :");
+//        Log.d(CLASSNAME, key.getName());
+//        Log.d(CLASSNAME, key.getId().toString());
+//        Log.d(CLASSNAME, "for this category :");
         value.forEach(predicate -> {
-          Log.d(CLASSNAME, predicate.getId().toString());
-          Log.d(CLASSNAME, predicate.getNoteContent());
-          Log.d(CLASSNAME, predicate.getCategoryId().toString());
+//          Log.d(CLASSNAME, predicate.getId().toString());
+//          Log.d(CLASSNAME, predicate.getNoteContent());
+//          Log.d(CLASSNAME, predicate.getCategoryId().toString());
         });
 
       });
@@ -76,8 +76,8 @@ public class MainActivity extends BridgeActivity {
     var notes = noteDao.findAllNotes();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       notes.forEach(predicate -> {
-        Log.d(CLASSNAME, predicate.getNoteContent());
-        Log.d(CLASSNAME, predicate.getCategoryId().toString());
+//        Log.d(CLASSNAME, predicate.getNoteContent());
+//        Log.d(CLASSNAME, predicate.getCategoryId().toString());
       });
     }
     var list = cate.findAllRootCategories();
@@ -95,10 +95,10 @@ public class MainActivity extends BridgeActivity {
     try {
       server.start();
       log.warning("http server running");
-      Log.d(CLASSNAME, "hostname : " + server.getHostname());
-      Log.d(CLASSNAME, Objects.requireNonNull(this.getIPAddress()));
+//      Log.d(CLASSNAME, "hostname : " + server.getHostname());
+//      Log.d(CLASSNAME, Objects.requireNonNull(this.getIPAddress()));
       var port = server.getListeningPort();
-      Log.d(CLASSNAME, "server port is : " + port);
+//      Log.d(CLASSNAME, "server port is : " + port);
     } catch (IOException e) {
       e.printStackTrace();
       log.warning(e.getMessage());

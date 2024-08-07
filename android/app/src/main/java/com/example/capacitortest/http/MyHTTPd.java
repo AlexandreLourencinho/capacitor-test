@@ -29,13 +29,13 @@ public class MyHTTPd extends NanoHTTPD {
 
   @Override
   public Response serve(IHTTPSession session) {
-    Log.d(this.getClass().getName(), "Request received: " + session.getUri());
-    Log.d(CLASSNAME, session.getRemoteHostName());
-    Log.d(CLASSNAME, session.getRemoteIpAddress());
-    Log.d(CLASSNAME, session.getHeaders().toString());
+//    Log.d(this.getClass().getName(), "Request received: " + session.getUri());
+//    Log.d(CLASSNAME, session.getRemoteHostName());
+//    Log.d(CLASSNAME, session.getRemoteIpAddress());
+//    Log.d(CLASSNAME, session.getHeaders().toString());
     Log.d(CLASSNAME, session.getParameters().toString());
-    Log.d(CLASSNAME, session.getMethod().toString());
-    Log.d(CLASSNAME, session.getUri());
+//    Log.d(CLASSNAME, session.getMethod().toString());
+//    Log.d(CLASSNAME, session.getUri());
 
     switch (session.getMethod()) {
 
@@ -44,7 +44,7 @@ public class MyHTTPd extends NanoHTTPD {
       }
 
       case GET -> {
-        return httpController.manageGetRequest();
+        return httpController.manageGetRequest(session);
       }
 
       case POST -> {
@@ -53,6 +53,8 @@ public class MyHTTPd extends NanoHTTPD {
           } catch (ResponseException e) {
               throw new RuntimeException(e);
           } catch (IOException e) {
+              throw new RuntimeException(e);
+          } catch (JSONException e) {
               throw new RuntimeException(e);
           }
       }

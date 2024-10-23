@@ -1,4 +1,4 @@
-<div>
+<div class="flex-test">
 <nav class="navbar fixed-top">
   <div class="container-fluid">
     <button class="navbar-toggler"
@@ -9,17 +9,17 @@
             aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-start w-50" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas offcanvas-start w-50 text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-body">
         <div class="close-btn">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active text-secondary" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link text-secondary" href="#">Link</a>
           </li>
         </ul>
       </div>
@@ -28,10 +28,11 @@
 </nav>
 
 
-<div *ngIf="response"> {{response}}</div>
+<!--<div *ngIf="response"> {{response}}</div>-->
 <app-note-card></app-note-card>
 </div>
+<!--<app-note-creation></app-note-creation>-->
 <div>
-  <button (click)="testNanoHTTPDrequest()" class="btn btn-secondary rounded-circle shadow scale-t">+</button>
+  <button (click)="openPopup()" class="btn btn-secondary rounded-circle shadow scale-t">+</button>
 </div>
 

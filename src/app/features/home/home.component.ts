@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {HomeService} from "./services/home.service";
 import {catchError, finalize, map, tap} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NoteCreationComponent} from "@core/note-creation/note-creation.component";
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,13 @@ export class HomeComponent {
 
   public response: string | undefined;
 
-  constructor(private readonly service: HomeService) {
+  constructor(private readonly service: HomeService,
+              private readonly modalService: NgbModal) {
+  }
+
+
+  openPopup() {
+    this.modalService.open(NoteCreationComponent);
   }
 
   testNanoHTTPDrequest() {

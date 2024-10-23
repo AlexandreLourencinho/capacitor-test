@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HomeComponent} from "@components/home/home.component";
+import {HomeComponent} from "@features/home/home.component";
 import {CoreModule} from "@core/core.module";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -13,9 +14,10 @@ import {CoreModule} from "@core/core.module";
   imports: [
     AppRoutingModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

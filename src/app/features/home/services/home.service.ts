@@ -7,9 +7,16 @@ import {Observable} from "rxjs";
 })
 export class HomeService {
 
+  // drag and drop tuto
+  //https://stackblitz.com/edit/angular-drag-drop-autoscroll-long-press?file=src%2Fapp%2Fapp.component.css
+  public isCardCreation = false;
   private apiUrl = "http://10.0.2.16:8080";
 
   constructor(private http: HttpClient) {
+  }
+
+  public openingCreation(): void {
+    this.isCardCreation = !this.isCardCreation;
   }
 
   public testCall(): Observable<any> {

@@ -1,0 +1,28 @@
+.p-t-3 {
+  margin-top: 6vh;
+  padding-left: 2vh;
+}
+
+@media (max-height: 810px) {
+  .p-t-3 {
+    margin-top: 8vh;
+    padding-left: 2vh;
+  }
+
+}
+
+@media (max-height: 607px) {
+  .p-t-3 {
+    margin-top: 10vh;
+    padding-left: 2vh;
+  }
+
+}
+
+@media (min-height: 320px) and (max-height: 478px) {
+  .p-t-3 {
+    margin-top: 16vh;
+    padding-left: 2vh;
+  }
+
+}
